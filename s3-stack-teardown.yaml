@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Simple S3 Bucket StackSet
+
+Resources:
+  MySimpleBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub "my-simple-bucket-${AWS::AccountId}-${AWS::Region}"
+      Tags:
+        - Key: "Environment"
+          Value: "test"
+        - Key: "Project"
+          Value: "CloudFormationDemo"
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Retain
+
+Outputs:
+  BucketName:
+    Description: "Name of the S3 bucket"
+    Value: !Ref MySimpleBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-BucketName"
